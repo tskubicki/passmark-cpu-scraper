@@ -1,6 +1,6 @@
-# Passmark cpubenchmark.net CPU Scraper
+# Passmark cpubenchmark.net CPU Scraper to CSV
 
-Node.js server that parses Passmark's http://www.cpubenchmark.net/CPU_mega_page.html
+Node.js server that parses Passmark's http://www.cpubenchmark.net/CPU_mega_page.html and returns CSV file
 
 ## Usage
 ```

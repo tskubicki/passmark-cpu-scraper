@@ -3,6 +3,7 @@ var request = require('request');
 var cheerio = require('cheerio');
 var app = express();
 var { Parser } = require('json2csv');
+var { DateTime } = require('luxon');
 
 app.get('/', async function (req, res) {
 	var url = 'http://www.cpubenchmark.net/CPU_mega_page.html';
@@ -45,6 +46,8 @@ app.get('/', async function (req, res) {
 		const parser = new Parser();
 		const csv = parser.parse(cpuData);
 
+		res.setHeader('Content-disposition', `attachment; filename=cpubenchmark_${DateTime.local().toISO()}.csv`);
+		res.setHeader('Content-type', 'application/CSV');
 		res.write(csv);
 		res.end();
 	});
