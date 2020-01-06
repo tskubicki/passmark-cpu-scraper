@@ -2,8 +2,9 @@ var express = require('express');
 var request = require('request');
 var cheerio = require('cheerio');
 var app = express();
+var { Parser } = require('json2csv');
 
-app.get('/', function (req, res) {
+app.get('/', async function (req, res) {
 	var url = 'http://www.cpubenchmark.net/CPU_mega_page.html';
 	var cpuData = [];
 
@@ -40,10 +41,13 @@ app.get('/', function (req, res) {
 		} else {
 			console.log('Something went wrong');
 		}
-	});
 
-	res.write(JSON.stringify(cpuData));
-	res.end();
+		const parser = new Parser();
+		const csv = parser.parse(cpuData);
+
+		res.write(csv);
+		res.end();
+	});
 });
 
 app.listen('8081');
